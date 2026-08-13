@@ -3,7 +3,7 @@
  * Plugin Name: Cartesio Toolkit
  * Plugin URI:  https://github.com/andreata/cartesio-toolkit
  * Description: Infrastruttura condivisa dei progetti Cartesio: migrazioni versionate, guardrail sugli ambienti, separazione fra editing di contenuti e di struttura.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Cartesio
  * License:     Proprietary
  * Text Domain: cartesio
@@ -17,7 +17,7 @@
 
 defined( 'ABSPATH' ) || exit;
 
-define( 'CARTESIO_TOOLKIT_VERSION', '1.0.0' );
+define( 'CARTESIO_TOOLKIT_VERSION', '1.0.1' );
 define( 'CARTESIO_TOOLKIT_DIR', __DIR__ );
 
 /**

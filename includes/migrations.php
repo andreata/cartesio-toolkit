@@ -283,6 +283,39 @@ final class CARTESIO_CLI_Command {
 	}
 
 	/**
+	 * Verifica se un record di stili globali è quello vuoto creato da WordPress.
+	 *
+	 * Si decodifica il JSON invece di confrontare la stringa: WordPress non
+	 * garantisce la formattazione e basta uno spazio in più per far sembrare
+	 * modificati stili che nessuno ha toccato.
+	 *
+	 * @param string $contenuto Contenuto del post.
+	 * @return bool
+	 */
+	private static function stili_globali_vuoti( $contenuto ) {
+		$contenuto = trim( $contenuto );
+
+		if ( '' === $contenuto ) {
+			return true;
+		}
+
+		$dati = json_decode( $contenuto, true );
+
+		if ( ! is_array( $dati ) ) {
+			return false;
+		}
+
+		// Conta solo ciò che un utente può aver scritto dal Site Editor.
+		foreach ( array( 'styles', 'settings' ) as $chiave ) {
+			if ( ! empty( $dati[ $chiave ] ) ) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	/**
 	 * Rileva il drift: contenuti in DB che dovrebbero vivere su file.
 	 *
 	 * Quando qualcuno modifica un template dal Site Editor, WordPress salva un
@@ -331,7 +364,7 @@ final class CARTESIO_CLI_Command {
 
 			foreach ( $posts as $post ) {
 				// Gli stili globali di default vengono creati da WP: contano solo se modificati.
-				if ( 'wp_global_styles' === $type && '{"version":3,"isGlobalStylesUserThemeJSON":true}' === trim( $post->post_content ) ) {
+				if ( 'wp_global_styles' === $type && self::stili_globali_vuoti( $post->post_content ) ) {
 					continue;
 				}
 

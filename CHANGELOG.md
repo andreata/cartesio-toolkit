@@ -3,6 +3,15 @@
 Formato [Keep a Changelog](https://keepachangelog.com/it/1.1.0/), versionamento
 [semantico](https://semver.org/lang/it/).
 
+## [1.0.1] — 2026-08-13
+
+### Corretto
+
+- **`drift` non segnala più gli stili globali vuoti.** Il confronto era fatto
+  sulla stringa JSON esatta: bastava uno spazio in più — e WordPress li scrive
+  con gli spazi — perché un record mai toccato risultasse drift. Ora il JSON
+  viene decodificato e contano solo `styles` e `settings` non vuoti.
+
 ## [1.0.0] — 2026-08-12
 
 Prima release. Estratto dai mu-plugin dello starter per poter essere aggiornato
