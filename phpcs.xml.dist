@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<ruleset name="Cartesio Toolkit">
+    <description>Standard di codice del toolkit condiviso.</description>
+
+    <file>.</file>
+
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+
+    <arg name="extensions" value="php"/>
+    <arg name="colors"/>
+    <arg value="sp"/>
+
+    <config name="minimum_wp_version" value="6.7"/>
+    <config name="testVersion" value="8.3-"/>
+
+    <rule ref="WordPress-Core">
+        <!--
+            L'architettura del toolkit è "un modulo = un file": il loader carica
+            includes/<modulo>.php e ogni modulo è autosufficiente. Le convenzioni
+            class-*.php e una-classe-per-file sono pensate per plugin con autoload
+            PSR; applicarle qui spezzerebbe i moduli senza alcun beneficio.
+        -->
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
+    </rule>
+    <rule ref="WordPress-Docs"/>
+
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="cartesio"/>
+            </property>
+        </properties>
+    </rule>
+</ruleset>
